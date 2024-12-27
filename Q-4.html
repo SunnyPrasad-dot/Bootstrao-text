@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Blog Section</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #475569;
+            --accent-color: #f97316;
+        }
+
+        body {
+            background-color: #f8fafc;
+        }
+
+        .section-header {
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #1e293b;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--secondary-color);
+            margin-top: 1rem;
+        }
+
+        .blog-card {
+            background: #ffffff;
+            border: none;
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 100%;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+                        0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .card-img-wrapper {
+            position: relative;
+            overflow: hidden;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+        }
+
+        .card-img-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .blog-card:hover .card-img-top {
+            transform: scale(1.05);
+        }
+        
+        .blog-category {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 1;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+        
+        .card-title {
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            color: #1e293b;
+            line-height: 1.4;
+        }
+
+        .card-title a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .card-title a:hover {
+            color: var(--primary-color);
+        }
+        
+        .card-text {
+            color: var(--secondary-color);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .post-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+            font-size: 0.875rem;
+        }
+
+        .post-meta i {
+            margin-right: 0.5rem;
+        }
+
+        .post-meta span {
+            margin-right: 1rem;
+        }
+
+        .author-info {
+            display: flex;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .author-avatar {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            margin-right: 0.75rem;
+            border: 2px solid #fff;
+            box-shadow: 0 0 0 2px var(--primary-color);
+        }
+        
+        .author-details {
+            flex-grow: 1;
+        }
+
+        .author-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: #1e293b;
+        }
+        
+        .post-date {
+            font-size: 0.875rem;
+            color: var(--secondary-color);
+            margin: 0;
+        }
+
+        .card-footer {
+            background: none;
+            border-top: none;
+            padding: 0 1.5rem 1.5rem;
+        }
+
+        .read-more {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .read-more i {
+            margin-left: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .read-more:hover {
+            color: var(--accent-color);
+        }
+
+        .read-more:hover i {
+            transform: translateX(4px);
+        }
+
+        .social-share {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .share-button {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f1f5f9;
+            color: var(--secondary-color);
+            transition: all 0.3s ease;
+        }
+
+        .share-button:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+   
+    
+    <div class="container py-5">
+        <div class="section-header">
+            <h2 class="section-title">Explore Nature's Wonders</h2>
+            <p class="section-subtitle">Discover the beauty and mysteries of our natural world</p>
+        </div>
+        
+        <div class="row g-4">
+            <!-- Blog Card 1 -->
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card blog-card">
+                    <div class="card-img-wrapper">
+                        <img src="images/i-1.jfif" class="card-img-top" alt="Rainforest">
+                        <span class="blog-category">
+                            <i class="fas fa-leaf"></i> Wildlife
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <div class="post-meta">
+                            <span><i class="far fa-clock"></i> 5 min read</span>
+                            <span><i class="far fa-comment"></i> 24 comments</span>
+                        </div>
+                        <h5 class="card-title">
+                            <a href="#">The Hidden Life of Amazon Rainforest</a>
+                        </h5>
+                        <p class="card-text">Journey deep into the Amazon rainforest to discover fascinating species and their incredible survival strategies in one of Earth's most diverse ecosystems...</p>
+                        <div class="author-info">
+                            <img src="images/OIP (1).jfif" class="author-avatar" alt="Emma Wilson">
+                            <div class="author-details">
+                                <p class="author-name">Emma Wilson</p>
+                                <p class="post-date">Dec 26, 2024</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#" class="read-more">
+                            Read Article <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <div class="social-share">
+                            <a href="#" class="share-button"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="share-button"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="share-button"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blog Card 2 -->
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card blog-card">
+                    <div class="card-img-wrapper">
+                        <img src="images/i-2.jfif" class="card-img-top" alt="Mountain Range">
+                        <span class="blog-category">
+                            <i class="fas fa-mountain"></i> Landscapes
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <div class="post-meta">
+                            <span><i class="far fa-clock"></i> 7 min read</span>
+                            <span><i class="far fa-comment"></i> 18 comments</span>
+                        </div>
+                        <h5 class="card-title">
+                            <a href="#">Majestic Mountains of Patagonia</a>
+                        </h5>
+                        <p class="card-text">Explore the breathtaking peaks and valleys of Patagonia, where ancient glaciers shape the land and create some of Earth's most stunning vistas...</p>
+                        <div class="author-info">
+                            <img src="images/OIP.jfif" class="author-avatar" alt="Marco Torres">
+                            <div class="author-details">
+                                <p class="author-name">Marco Torres</p>
+                                <p class="post-date">Dec 25, 2024</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#" class="read-more">
+                            Read Article <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <div class="social-share">
+                            <a href="#" class="share-button"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="share-button"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="share-button"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blog Card 3 -->
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card blog-card">
+                    <div class="card-img-wrapper">
+                        <img src="images/i-3.jfif" class="card-img-top" alt="Coral Reef">
+                        <span class="blog-category">
+                            <i class="fas fa-water"></i> Marine Life
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <div class="post-meta">
+                            <span><i class="far fa-clock"></i> 10 min read</span>
+                            <span><i class="far fa-comment"></i> 32 comments</span>
+                        </div>
+                        <h5 class="card-title">
+                            <a href="#">Secrets of the Great Barrier Reef</a>
+                        </h5>
+                        <p class="card-text">Dive into the vibrant underwater world of the Great Barrier Reef, home to thousands of marine species and colorful coral formations...</p>
+                        <div class="author-info">
+                            <img src="images/download.jfif" class="author-avatar" alt="Sarah Chen">
+                            <div class="author-details">
+                                <p class="author-name">Sarah Chen</p>
+                                <p class="post-date">Dec 24, 2024</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#" class="read-more">
+                            Read Article <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <div class="social-share">
+                            <a href="#" class="share-button"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="share-button"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="share-button"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
